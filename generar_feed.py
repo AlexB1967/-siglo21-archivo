@@ -47,8 +47,63 @@ def extraer_items(datos):
 
 
 def parsear_fecha(texto):
-    if not texto:
+    if texto is None:
         return None
+
+    # Si RTVE devuelve un objeto, buscamos la fecha dentro
+    if isinstance(texto, dict):
+        for clave in ["pubDate", "date", "publicationDate", "dateOfEmission"]:
+            if clave in texto:
+                texto = texto[clave]
+                break
+        else:
+            return None
+
+    # Timestamp Unix, en segundos o milisegundos
+    if isinstance(texto, (int, float)):
+        try:
+            valor = float(texto)
+            if valor > 10_000_000_000:
+                valor /= 1000
+            return datetime.fromtimestamp(valor)
+        except (ValueError, TypeError, OSError):
+            return None
+
+    texto = str(texto).strip()
+
+    # Timestamp recibido como texto
+    if texto.isdigit():
+        try:
+            valor = float(texto)
+            if valor > 10_000_000_000:
+                valor /= 1000
+            return datetime.fromtimestamp(valor)
+        except (ValueError, TypeError, OSError):
+            pass
+
+    texto = texto.replace("Z", "+00:00")
+
+    # Primero intentamos ISO
+    try:
+        return datetime.fromisoformat(texto)
+    except ValueError:
+        pass
+
+    formatos = [
+        "%Y-%m-%dT%H:%M:%S%z",
+        "%Y-%m-%dT%H:%M:%S",
+        "%Y-%m-%d",
+        "%d/%m/%Y",
+        "%d/%m/%y",
+    ]
+
+    for formato in formatos:
+        try:
+            return datetime.strptime(texto, formato)
+        except ValueError:
+            pass
+
+    return None
 
     formatos = [
         "%Y-%m-%dT%H:%M:%S%z",
@@ -113,9 +168,9 @@ for item in todos:
     )
 
     fecha_texto = buscar_valor(
-        item,
-        ["pubState", "publicationDate", "pubDate", "dateOfEmission", "fecha"]
-    )
+    item,
+    ["publicationDate", "pubDate", "dateOfEmission", "fecha", "pubState"]
+)
 
     pagina_web = buscar_valor(
         item,
