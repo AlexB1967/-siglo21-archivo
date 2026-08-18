@@ -33,10 +33,9 @@ jobs:
 
       - name: Preparar publicación
         run: |
-        mkdir public
-        cp feed.xml public/feed.xml
-        cp index.html public/index.html
-
+          mkdir public
+          cp feed.xml public/feed.xml
+          cp index.html public/index.html
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 
