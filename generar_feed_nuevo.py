@@ -1,18 +1,18 @@
 import requests
 
-URL = "https://api.rtve.es/api/programas/2002/audios.json"
+URLS = [
+    "https://api.rtve.es/api/programas/2002/audios.json",
+    "https://api.rtve.es/api/programas/2002/multimedias.json",
+]
 
-for pagina in [1, 2]:
-    print("\n==============================")
-    print(f"PROBANDO PAGINA {pagina}")
-    print("==============================")
+for url in URLS:
+    print("\n===================================")
+    print("PROBANDO:", url)
+    print("===================================")
 
     r = requests.get(
-        URL,
-        params={
-            "size": 1,
-            "page": pagina
-        },
+        url,
+        params={"size": 1, "page": 1},
         timeout=30
     )
 
