@@ -174,11 +174,7 @@ detalle_url = f"https://api.rtve.es/api/audios/{primer_id}.json"
 detalle = requests.get(detalle_url, timeout=30)
 print("DETALLE STATUS:", detalle.status_code)
 print("DETALLE AUDIO:", detalle.json())
-    todos[0],
-    ["file", "audioUrl", "downloadUrl", "mediaUrl", "url"]
-))
-
-episodios = []
+    
 
 episodios = []
 for item in todos:
