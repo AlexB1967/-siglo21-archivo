@@ -162,8 +162,10 @@ print(f"Encontrados {len(todos)} registros.")
 print("PRIMER REGISTRO COMPLETO:")
 print(todos[0])
 
-print("FECHA ENCONTRADA:", buscar_valor(todos[0], ["publicationDate", "pubDate", "dateOfEmission", "fecha", "pubState"]))
-print("TITULO ENCONTRADO:", buscar_valor(todos[0], ["title", "titulo", "name"]))
+print("AUDIO ENCONTRADO:", buscar_valor(
+    todos[0],
+    ["file", "audioUrl", "downloadUrl", "mediaUrl", "url"]
+))
 
 episodios = []
 
