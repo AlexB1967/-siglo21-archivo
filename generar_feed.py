@@ -163,6 +163,13 @@ print("PRIMER REGISTRO COMPLETO:")
 print(todos[0])
 
 print("AUDIO ENCONTRADO:", buscar_valor(
+    primer_id = buscar_valor(todos[0], ["id"])
+print("ID PRIMER AUDIO:", primer_id)
+
+detalle_url = f"https://api.rtve.es/api/audios/{primer_id}.json"
+detalle = requests.get(detalle_url, timeout=30)
+print("DETALLE STATUS:", detalle.status_code)
+print("DETALLE AUDIO:", detalle.json())
     todos[0],
     ["file", "audioUrl", "downloadUrl", "mediaUrl", "url"]
 ))
