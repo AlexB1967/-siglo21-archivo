@@ -26,6 +26,11 @@ while True:
     r.raise_for_status()
 
     data = r.json()
+    
+    print("CLAVES DATA:", data.keys())
+    print("TIPO PAGE:", type(data.get("page")))
+    print("CONTENIDO PAGE:", data.get("page"))
+break
     pagina = data.get("page", {})
     items = pagina.get("items", [])
 
