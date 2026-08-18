@@ -1,8 +1,8 @@
 import requests
 
 URLS = [
-    "https://api.rtve.es/api/programas/2002/audios.json",
-    "https://api.rtve.es/api/programas/2002/multimedias.json",
+    "https://api.rtve.es/api/programas/2082/audios.json",
+    "https://api.rtve.es/api/programas/2082/multimedias.json",
 ]
 
 for url in URLS:
