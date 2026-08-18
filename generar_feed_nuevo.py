@@ -8,7 +8,7 @@ import re
 URL = "https://api.rtve.es/api/programas/2002/audios.json"
 
 # Pedimos muchos episodios por página para reducir el número de consultas
-PAGE_SIZE = 20
+PAGE_SIZE = 1
 
 todos = []
 page = 1
