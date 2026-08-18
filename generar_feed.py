@@ -156,10 +156,13 @@ while True:
     pagina += 1
     time.sleep(0.3)
 
+
 print(f"Encontrados {len(todos)} registros.")
 
-episodios = []
+print("PRIMER REGISTRO COMPLETO:")
+print(todos[0])
 
+episodios = []
 for item in todos:
 
     titulo = buscar_valor(
