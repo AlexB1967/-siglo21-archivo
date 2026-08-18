@@ -11,7 +11,7 @@ URL = "https://api.rtve.es/api/programas/2002/audios.json"
 PAGE_SIZE = 1
 
 todos = []
-page = 1
+page = 0
 
 print("Descargando archivo de Siglo 21...")
 
