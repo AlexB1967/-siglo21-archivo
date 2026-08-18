@@ -90,12 +90,12 @@ def parsear_fecha(texto):
         pass
 
     formatos = [
-        "%Y-%m-%dT%H:%M:%S%z",
-        "%Y-%m-%dT%H:%M:%S",
-        "%Y-%m-%d",
-        "%d/%m/%Y",
-        "%d/%m/%y",
-    ]
+    "%d-%m-%Y %H:%M:%S",
+    "%Y-%m-%dT%H:%M:%S%z",
+    "%Y-%m-%dT%H:%M:%S",
+    "%Y-%m-%d",
+    "%d/%m/%Y",
+]
 
     for formato in formatos:
         try:
