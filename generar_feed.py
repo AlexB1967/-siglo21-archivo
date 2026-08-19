@@ -152,9 +152,6 @@ while True:
 
     pagina += 1
 time.sleep(0.3)
-    pagina += 1
-    time.sleep(0.3)
-
 
 print(f"Encontrados {len(todos)} registros.")
 
