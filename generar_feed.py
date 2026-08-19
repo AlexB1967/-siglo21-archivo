@@ -150,9 +150,8 @@ while True:
 
     todos.extend(items)
 
-    if len(items) < 60:
-        break
-
+    pagina += 1
+time.sleep(0.3)
     pagina += 1
     time.sleep(0.3)
 
