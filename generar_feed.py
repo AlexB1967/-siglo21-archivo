@@ -205,12 +205,12 @@ audio = (
     else ""
 )
 
-    descripcion = buscar_valor(
+descripcion = buscar_valor(
         item,
         ["description", "shortDescription", "summary"]
 )
 
-    fecha = parsear_fecha(fecha_texto)
+fecha = parsear_fecha(fecha_texto)
 
     if titulo and fecha:
         episodios.append({
