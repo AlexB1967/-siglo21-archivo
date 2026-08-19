@@ -217,6 +217,8 @@ if titulo and fecha:
                 "descripcion": str(descripcion or "")
             })
 
+print("TOTAL TODOS:", len(todos))
+print("FECHAS VALIDAS:", sum(1 for x in todos if parsear_fecha(buscar_valor(x, ["publicationDate", "pubDate", "dateOfEmission", "fecha", "pubState"]))))
 
 # El más antiguo primero
 episodios.sort(key=lambda x: x["fecha"])
