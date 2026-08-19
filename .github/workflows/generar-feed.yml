@@ -35,6 +35,7 @@ jobs:
         run: |
           mkdir public
           cp feed.xml public/feed.xml
+          cp "ChatGPT Image 19 ago 2026, 18_30_41.png" public/
           cp index.html public/index.html
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
