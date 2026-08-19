@@ -194,15 +194,16 @@ for item in todos:
         ["htmlUrl", "url", "webUrl"]
     )
 
-    audio = buscar_valor(
-        item,
-        ["file", "audioUrl", "downloadUrl", "mediaUrl"]
-    )
-
     identificador = buscar_valor(
-        item,
-        ["id", "uri"]
-    )
+    item,
+    ["id"]
+)
+
+audio = (
+    f"https://ztnr.rtve.es/ztnr/{identificador}.mp3"
+    if identificador
+    else ""
+)
 
     descripcion = buscar_valor(
         item,
