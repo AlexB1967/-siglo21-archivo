@@ -242,15 +242,15 @@ if identificador:
     fecha = parsear_fecha(fecha_texto)
 
     if titulo and fecha:
-    episodios.append({
-        "titulo": str(titulo),
-        "fecha": fecha,
-        "pagina": str(pagina_web or ""),
-        "audio": str(audio or ""),
-        "audio_length": str(audio_length or "0"),
-        "id": str(identificador or titulo),
-        "descripcion": str(descripcion or "")
-    })
+        episodios.append({
+            "titulo": str(titulo),
+            "fecha": fecha,
+            "pagina": str(pagina_web or ""),
+            "audio": str(audio or ""),
+            "audio_length": str(audio_length or "0"),
+            "id": str(identificador or titulo),
+            "descripcion": str(descripcion or "")
+        })
         
 print("TOTAL TODOS:", len(todos))
 print("TITULOS VALIDOS:", sum(1 for x in todos if buscar_valor(x, ["title", "titulo", "name"])))
