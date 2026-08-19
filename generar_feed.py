@@ -204,19 +204,19 @@ descripcion = buscar_valor(
         ["description", "shortDescription", "summary"]
 )
 
-fecha = parsear_fecha(fecha_texto)
-
-print("INDICE ACTUAL:", indice)
-
-if titulo and fecha:
-            episodios.append({
-                "titulo": str(titulo),
-                "fecha": fecha,
-                "pagina": str(pagina_web or ""),
-                "audio": str(audio or ""),
-                "id": str(identificador or titulo),
-                "descripcion": str(descripcion or "")
-            })
+    fecha = parsear_fecha(fecha_texto)
+    
+    print("INDICE ACTUAL:", indice)
+    
+    if titulo and fecha:
+                episodios.append({
+                    "titulo": str(titulo),
+                    "fecha": fecha,
+                    "pagina": str(pagina_web or ""),
+                    "audio": str(audio or ""),
+                    "id": str(identificador or titulo),
+                    "descripcion": str(descripcion or "")
+                })
 
 print("TOTAL TODOS:", len(todos))
 print("TITULOS VALIDOS:", sum(1 for x in todos if buscar_valor(x, ["title", "titulo", "name"])))
