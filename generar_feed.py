@@ -187,17 +187,53 @@ for item in todos:
         ["htmlUrl", "url", "webUrl"]
     )
 
-    identificador = buscar_valor(
-        item,
-        ["id"]
-    )
+   identificador = buscar_valor(
+    item,
+    ["id"]
+)
 
-    audio = (
-        f"https://ztnr.rtve.es/ztnr/{identificador}.mp3"
-        if identificador
-        else ""
-    )
+audio = ""
+audio_length = "0"
 
+if identificador:
+    try:
+        detalle_url = f"https://api.rtve.es/api/audios/{identificador}.json"
+        detalle_resp = requests.get(detalle_url, timeout=30)
+        detalle_resp.raise_for_status()
+        detalle_data = detalle_resp.json()
+
+        def buscar_mp3(obj):
+            if isinstance(obj, dict):
+                archivo = obj.get("file")
+                tipo = obj.get("type", "")
+                tamano = obj.get("filesize")
+
+                if archivo and (
+                    str(archivo).lower().endswith(".mp3")
+                    or str(tipo).lower() in ["audio/mpeg", "audio/mp3"]
+                ):
+                    return str(archivo), str(tamano or 0)
+
+                for valor in obj.values():
+                    resultado = buscar_mp3(valor)
+                    if resultado:
+                        return resultado
+
+            elif isinstance(obj, list):
+                for valor in obj:
+                    resultado = buscar_mp3(valor)
+                    if resultado:
+                        return resultado
+
+            return None
+
+        resultado_mp3 = buscar_mp3(detalle_data)
+
+        if resultado_mp3:
+            audio, audio_length = resultado_mp3
+
+    except Exception as e:
+        print(f"No se pudo obtener MP3 para {identificador}: {e}")
     descripcion = buscar_valor(
         item,
         ["description", "shortDescription", "summary"]
@@ -206,14 +242,15 @@ for item in todos:
     fecha = parsear_fecha(fecha_texto)
 
     if titulo and fecha:
-        episodios.append({
-            "titulo": str(titulo),
-            "fecha": fecha,
-            "pagina": str(pagina_web or ""),
-            "audio": str(audio or ""),
-            "id": str(identificador or titulo),
-            "descripcion": str(descripcion or "")
-        })
+episodios.append({
+    "titulo": str(titulo),
+    "fecha": fecha,
+    "pagina": str(pagina_web or ""),
+    "audio": str(audio or ""),
+    "audio_length": str(audio_length or "0"),
+    "id": str(identificador or titulo),
+    "descripcion": str(descripcion or "")
+})
         
 print("TOTAL TODOS:", len(todos))
 print("TITULOS VALIDOS:", sum(1 for x in todos if buscar_valor(x, ["title", "titulo", "name"])))
@@ -256,16 +293,15 @@ for ep in episodios:
         ET.SubElement(item, "link").text = ep["pagina"]
 
     if ep["audio"]:
-        ET.SubElement(
+       ET.SubElement(
             item,
             "enclosure",
             {
                 "url": ep["audio"],
                 "type": "audio/mpeg",
-                "length": "0"
+                "length": ep.get("audio_length", "0")
             }
         )
-
 
 arbol = ET.ElementTree(rss)
 
