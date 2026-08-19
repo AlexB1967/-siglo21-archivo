@@ -103,8 +103,6 @@ def parsear_fecha(texto):
         except ValueError:
             pass
 
-    return None
-
     formatos = [
         "%Y-%m-%dT%H:%M:%S%z",
         "%Y-%m-%dT%H:%M:%S",
