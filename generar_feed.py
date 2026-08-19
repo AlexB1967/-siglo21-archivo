@@ -174,66 +174,34 @@ episodios = []
 for item in todos:
     titulo = buscar_valor(
         item,
-        ["title", "titulo", "name"]
+        ["title", "longTitle", "shortTitle", "titulo", "name"]
     )
 
     fecha_texto = buscar_valor(
         item,
-        ["publicationDate", "pubDate", "dateOfEmission", "fecha", "pubState"]
+        ["publicationDate", "pubDate", "dateOfEmission", "fecha"]
     )
 
     pagina_web = buscar_valor(
         item,
-        ["htmlUrl", "url", "webUrl"]
+        ["htmlUrl", "htmlShortUrl", "url", "webUrl"]
     )
 
     identificador = buscar_valor(
-    item,
-    ["id"]
+        item,
+        ["id"]
     )
-    
-    audio = ""
-    audio_length = "0"
 
-if identificador:
-    try:
-        detalle_url = f"https://api.rtve.es/api/audios/{identificador}.json"
-        detalle_resp = requests.get(detalle_url, timeout=30)
-        detalle_resp.raise_for_status()
-        detalle_data = detalle_resp.json()
+    audio = buscar_valor(
+        item,
+        ["filePath", "file", "audioUrl", "downloadUrl", "mediaUrl"]
+    )
 
-        def buscar_mp3(obj):
-            if isinstance(obj, dict):
-                archivo = obj.get("file")
-                tipo = obj.get("type", "")
-                tamano = obj.get("filesize")
+    audio_length = buscar_valor(
+        item,
+        ["filesize", "fileSize", "size"]
+    )
 
-                if archivo and (
-                    str(archivo).lower().endswith(".mp3")
-                    or str(tipo).lower() in ["audio/mpeg", "audio/mp3"]
-                ):
-                    return str(archivo), str(tamano or 0)
-
-                for valor in obj.values():
-                    resultado = buscar_mp3(valor)
-                    if resultado:
-                        return resultado
-
-            elif isinstance(obj, list):
-                for valor in obj:
-                    resultado = buscar_mp3(valor)
-                    if resultado:
-                        return resultado
-
-            return None
-
-        resultado_mp3 = buscar_mp3(detalle_data)
-
-        if resultado_mp3:
-            audio, audio_length = resultado_mp3
-
-    except Exception as e:
-        print(f"No se pudo obtener MP3 para {identificador}: {e}")
     descripcion = buscar_valor(
         item,
         ["description", "shortDescription", "summary"]
@@ -241,17 +209,17 @@ if identificador:
 
     fecha = parsear_fecha(fecha_texto)
 
-    if titulo and fecha:
+    if titulo and fecha and audio:
         episodios.append({
             "titulo": str(titulo),
             "fecha": fecha,
             "pagina": str(pagina_web or ""),
-            "audio": str(audio or ""),
+            "audio": str(audio),
             "audio_length": str(audio_length or "0"),
             "id": str(identificador or titulo),
             "descripcion": str(descripcion or "")
         })
-        
+print("AUDIOS VALIDOS:", sum(1 for x in todos if buscar_valor(x, ["filePath", "file", "audioUrl", "downloadUrl", "mediaUrl"])))      
 print("TOTAL TODOS:", len(todos))
 print("TITULOS VALIDOS:", sum(1 for x in todos if buscar_valor(x, ["title", "titulo", "name"])))
 print("FECHAS VALIDAS:", sum(1 for x in todos if parsear_fecha(buscar_valor(x, ["publicationDate", "pubDate", "dateOfEmission", "fecha", "pubState"]))))
