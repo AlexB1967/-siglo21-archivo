@@ -206,6 +206,8 @@ descripcion = buscar_valor(
 
 fecha = parsear_fecha(fecha_texto)
 
+print("INDICE ACTUAL:", indice)
+
 if titulo and fecha:
             episodios.append({
                 "titulo": str(titulo),
