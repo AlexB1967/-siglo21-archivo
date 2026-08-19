@@ -256,18 +256,6 @@ for ep in episodios:
     ET.SubElement(item, "pubDate").text = format_datetime(ep["fecha"])
 
     ET.SubElement(item, "description").text = ep["descripcion"]
-ET.SubElement(
-    channel,
-    "itunes:image",
-    {
-        "href": "https://alexb1967.github.io/-siglo21-archivo/ChatGPT%20Image%2019%20ago%202026%2C%2018_30_41.png"
-    }
-)
-
-imagen = ET.SubElement(channel, "image")
-ET.SubElement(imagen, "url").text = "https://alexb1967.github.io/-siglo21-archivo/ChatGPT%20Image%2019%20ago%202026%2C%2018_30_41.png"
-ET.SubElement(imagen, "title").text = "Siglo 21 - Archivo completo 2008-2021"
-ET.SubElement(imagen, "link").text = "https://www.rtve.es/play/audios/siglo-21/"
     if ep["pagina"]:
         ET.SubElement(item, "link").text = ep["pagina"]
 
