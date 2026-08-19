@@ -190,10 +190,10 @@ for item in todos:
     identificador = buscar_valor(
     item,
     ["id"]
-)
-
-audio = ""
-audio_length = "0"
+    )
+    
+    audio = ""
+    audio_length = "0"
 
 if identificador:
     try:
