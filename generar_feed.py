@@ -169,19 +169,18 @@ detalle = requests.get(detalle_url, timeout=30)
 print("DETALLE STATUS:", detalle.status_code)
 print("DETALLE AUDIO:", detalle.json())
     
-
 episodios = []
-for incice, item in enumerate(todos):
 
+for item in todos:
     titulo = buscar_valor(
         item,
         ["title", "titulo", "name"]
     )
 
     fecha_texto = buscar_valor(
-    item,
-    ["publicationDate", "pubDate", "dateOfEmission", "fecha", "pubState"]
-)
+        item,
+        ["publicationDate", "pubDate", "dateOfEmission", "fecha", "pubState"]
+    )
 
     pagina_web = buscar_valor(
         item,
@@ -189,24 +188,24 @@ for incice, item in enumerate(todos):
     )
 
     identificador = buscar_valor(
-    item,
-    ["id"]
-)
+        item,
+        ["id"]
+    )
 
-audio = (
-    f"https://ztnr.rtve.es/ztnr/{identificador}.mp3"
-    if identificador
-    else ""
-)
+    audio = (
+        f"https://ztnr.rtve.es/ztnr/{identificador}.mp3"
+        if identificador
+        else ""
+    )
 
-descripcion = buscar_valor(
+    descripcion = buscar_valor(
         item,
         ["description", "shortDescription", "summary"]
-)
+    )
 
-fecha = parsear_fecha(fecha_texto)
+    fecha = parsear_fecha(fecha_texto)
 
-if titulo and fecha:
+    if titulo and fecha:
         episodios.append({
             "titulo": str(titulo),
             "fecha": fecha,
@@ -215,7 +214,7 @@ if titulo and fecha:
             "id": str(identificador or titulo),
             "descripcion": str(descripcion or "")
         })
-
+        
 print("TOTAL TODOS:", len(todos))
 print("TITULOS VALIDOS:", sum(1 for x in todos if buscar_valor(x, ["title", "titulo", "name"])))
 print("FECHAS VALIDAS:", sum(1 for x in todos if parsear_fecha(buscar_valor(x, ["publicationDate", "pubDate", "dateOfEmission", "fecha", "pubState"]))))
