@@ -208,7 +208,7 @@ audio = (
     descripcion = buscar_valor(
         item,
         ["description", "shortDescription", "summary"]
-    )
+)
 
     fecha = parsear_fecha(fecha_texto)
 
