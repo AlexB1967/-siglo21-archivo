@@ -217,6 +217,7 @@ if titulo and fecha:
             })
 
 print("TOTAL TODOS:", len(todos))
+print("TITULOS VALIDOS:", sum(1 for x in todos if buscar_valor(x, ["title", "titulo", "name"])))
 print("FECHAS VALIDAS:", sum(1 for x in todos if parsear_fecha(buscar_valor(x, ["publicationDate", "pubDate", "dateOfEmission", "fecha", "pubState"]))))
 
 # El más antiguo primero
