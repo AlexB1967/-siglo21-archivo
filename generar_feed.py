@@ -208,15 +208,15 @@ descripcion = buscar_valor(
 
 fecha = parsear_fecha(fecha_texto)
 
-if titulo and fecha:
-        episodios.append({
-            "titulo": str(titulo),
-            "fecha": fecha,
-            "pagina": str(pagina_web or ""),
-            "audio": str(audio or ""),
-            "id": str(identificador or titulo),
-            "descripcion": str(descripcion or "")
-        })
+    if titulo and fecha:
+            episodios.append({
+                "titulo": str(titulo),
+                "fecha": fecha,
+                "pagina": str(pagina_web or ""),
+                "audio": str(audio or ""),
+                "id": str(identificador or titulo),
+                "descripcion": str(descripcion or "")
+            })
 
 
 # El más antiguo primero
