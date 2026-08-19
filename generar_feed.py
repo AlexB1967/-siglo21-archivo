@@ -207,8 +207,7 @@ descripcion = buscar_valor(
 )
 
 fecha = parsear_fecha(fecha_texto)
-if indice < 10:
-    print("PRUEBA FECHA:", indice, repr(fecha_texto), "=>", fecha)
+
 
 if titulo and fecha:
             episodios.append({
