@@ -206,7 +206,6 @@ descripcion = buscar_valor(
 
 fecha = parsear_fecha(fecha_texto)
 
-
 if titulo and fecha:
             episodios.append({
                 "titulo": str(titulo),
